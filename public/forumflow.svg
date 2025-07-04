@@ -1,0 +1,18 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="0" y="0" width="120" height="120" rx="16" fill="url(#bgGradient)"/>
+
+  <!-- White bars representing forum threads/posts -->
+  <rect x="30" y="30" width="60" height="10" rx="3" fill="white"/>
+  <rect x="30" y="48" width="45" height="10" rx="3" fill="white"/>
+  <rect x="30" y="66" width="30" height="10" rx="3" fill="white"/>
+
+  <!-- Text label -->
+  <text x="60" y="100" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle">Forum Flow</text>
+</svg>

@@ -1,0 +1,91 @@
+import {useCallback, useEffect,useState } from 'react';
+import Header from './Header';
+import TabNavigation from './TabNavigation';
+import Controls from './Controls';
+import UsersTable from './users/UserTable';
+import PostsTable from './posts/PostTable';
+import {useDispatch, useSelector } from 'react-redux';
+import { getPostsFetch, getUsersFetch, setSearchValue } from '../store/actions/actionCreators';
+import CreatePostModal from './posts/CreatePostModal';
+import Footer from './posts/Footer';
+
+const MainDashboard = () => {
+  const activeTab = useSelector((state) => state.dashboardReducer.activeTab);
+  const users = useSelector((state) => state.userReducer.users);
+  const posts = useSelector((state) => state.postReducer.posts);
+  const searchValue = useSelector((state) => state.dashboardReducer.searchValue);
+  const userIdToUsernameMap = useSelector((state) => state.userReducer.userIdToUsernameMap);
+
+  const [filteredUsers, setFilteredUsers] = useState(users);
+  const [filteredPosts, setFilteredPosts] = useState(posts);
+
+  const dispatch = useDispatch();
+  const setSearchValueHandler = (value) => {
+    dispatch(setSearchValue(value));
+  };
+
+  const searchProperty = useCallback((searchTerm) => {
+    if(searchTerm === '') {
+      setFilteredUsers(users);
+      setFilteredPosts(posts);
+      return;
+    }
+      const newFilteredPosts = posts.filter((post) => {
+        return (
+          post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          userIdToUsernameMap[post.userId]?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
+      setFilteredPosts(newFilteredPosts);
+      const newFilteredUsers = users.filter((user) => {
+        return (
+          user.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
+
+      setFilteredUsers(newFilteredUsers);
+  }, [posts, users, userIdToUsernameMap]);
+
+  useEffect(() => {
+    dispatch(getUsersFetch());
+    dispatch(getPostsFetch());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setFilteredUsers(users);
+    setFilteredPosts(posts);
+  }, [users,posts]);
+
+  useEffect(() => {
+    searchProperty(searchValue);
+  }, [activeTab, searchProperty, searchValue]);
+
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <div className="max-w-7xl mx-auto">
+
+        
+        <TabNavigation 
+          activeTab={activeTab} 
+          userCount={filteredUsers.length}
+          postCount={filteredPosts.length}
+        />
+
+        <Controls searchProperty={setSearchValueHandler} activeTab={activeTab} />
+
+        {activeTab === 'users' && (
+          <UsersTable users={filteredUsers} />
+        )}
+
+        {activeTab === 'posts' && (
+          <PostsTable posts={filteredPosts} users={users} />
+        )}
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
+export default MainDashboard;
