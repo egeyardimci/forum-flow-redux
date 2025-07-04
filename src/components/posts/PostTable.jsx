@@ -23,7 +23,7 @@ const PostsTable = ({ posts, users }) => {
     dispatch(deletePostFetch(postId));
   };
   return (
-    <div className="bg-white rounded-lg shadow-sm">
+    <div>
       <div className="overflow-x-auto">
         <div className="w-full">
             {posts.map((post) => (
