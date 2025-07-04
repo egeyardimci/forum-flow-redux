@@ -22,13 +22,13 @@ src/
 │   ├── MainDashboard.jsx # Main dashboard container
 │   ├── TabNavigation.jsx # Tab navigation component
 │   ├── Controls.jsx     # Search and filter controls
+│   ├── Footer.jsx       # App footer component
 │   ├── posts/           # Post-related components
 │   │   ├── PostTable.jsx
 │   │   ├── PostRow.jsx
 │   │   ├── CreatePostModal.jsx
 │   │   ├── EditPostModal.jsx
-│   │   ├── ViewDetailsModal.jsx
-│   │   └── Footer.jsx
+│   │   └── ViewDetailsModal.jsx
 │   └── users/           # User-related components
 │       ├── UserTable.jsx
 │       └── UserRow.jsx

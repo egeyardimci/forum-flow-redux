@@ -6,7 +6,7 @@ import UsersTable from './users/UserTable';
 import PostsTable from './posts/PostTable';
 import {useDispatch, useSelector } from 'react-redux';
 import { getPostsFetch, getUsersFetch, setSearchValue } from '../store/actions/actionCreators';
-import Footer from './posts/Footer';
+import Footer from './Footer';
 
 const MainDashboard = () => {
   const activeTab = useSelector((state) => state.dashboardReducer.activeTab);
