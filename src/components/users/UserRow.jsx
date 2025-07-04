@@ -1,4 +1,3 @@
-import { X } from "lucide-react";
 
 const UserRow = ({ user }) => (
   <tr className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
