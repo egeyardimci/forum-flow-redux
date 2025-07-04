@@ -23,9 +23,9 @@ const PostsTable = ({ posts, users }) => {
     dispatch(deletePostFetch(postId));
   };
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm transition-colors duration-300">
       <div className="overflow-x-auto">
-        <div className="w-full">
+        <div className="w-full p-4">
             {posts.map((post) => (
               <PostRow 
                 onUpdate={handleOnUpdate}

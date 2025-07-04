@@ -1,7 +1,7 @@
 import { Heart, Mail, Phone, MapPin, Github, Twitter, Linkedin } from "lucide-react";
 
 const Footer = () => (
-  <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-white mt-16">
+  <footer className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-950 dark:to-gray-900 text-white mt-16 transition-all duration-300">
     <div className="max-w-7xl mx-auto px-6 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         
@@ -82,7 +82,7 @@ const Footer = () => (
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+      <div className="border-t border-gray-700 dark:border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
         <div className="flex items-center gap-1 text-gray-400 text-sm mb-4 md:mb-0">
           <span>Made with</span>
           <Heart className="w-4 h-4 text-red-500" />
