@@ -9,9 +9,13 @@ const Footer = () => (
         <div className="lg:col-span-1">
           <div className="flex items-center gap-3 mb-4">
             <img 
-              src="/forumflow.svg" 
-              alt="ForumFlow Logo" 
-              className="w-8 h-8 object-contain"
+            src="/forumflow.svg" 
+            alt="ForumFlow Logo" 
+            className="w-8 h-8 object-contain"
+            onError={(e) => {
+                console.log('Logo failed to load, trying alternative path');
+                e.target.src = './forumflow.svg';
+            }}
             />
             <h3 className="text-2xl font-bold">Forum Flow</h3>
           </div>
