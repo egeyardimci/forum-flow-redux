@@ -1,11 +1,11 @@
 import { call, put } from "redux-saga/effects";
 import { createPostSuccess, deletePostSuccess, getPostsSuccess, updatePostSuccess } from "../actions/actionCreators";
+import { createPost, deletePost, fetchPosts, updatePost } from "../../api";
 
 export function* workGetPostsFetch() {
   try {
-    const response = yield call(fetch, "https://jsonplaceholder.typicode.com/posts/");
-    const data = yield response.json();
-    yield put(getPostsSuccess(data));
+    const postData = yield call(fetchPosts);
+    yield put(getPostsSuccess(postData));
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -13,15 +13,8 @@ export function* workGetPostsFetch() {
 
 export function* workDeletePostFetch(action) {
   try {
-    const response = yield call(fetch, `https://jsonplaceholder.typicode.com/posts/${action.payload}`, {
-      method: 'DELETE',
-    });
-    
-    if (response.ok) {
-      yield put(deletePostSuccess(action.payload));
-    } else {
-      throw new Error('Failed to delete post');
-    }
+    yield call(deletePost,action.payload.id);
+    yield put(deletePostSuccess(action.payload));
   } catch (error) {
     console.error("Error deleting post:", error);
   }
@@ -29,20 +22,8 @@ export function* workDeletePostFetch(action) {
 
 export function* workUpdatePostFetch(action) {
   try {
-    const response = yield call(fetch, `https://jsonplaceholder.typicode.com/posts/${action.payload.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(action.payload),
-    });
-
-    if (response.ok) {
-      const updatedPost = yield response.json();
-      yield put(updatePostSuccess(updatedPost));
-    } else {
-      throw new Error('Failed to update post');
-    }
+    const updatedPost = yield call(updatePost, action.payload);
+    yield put(updatePostSuccess(updatedPost));
   } catch (error) {
     console.error("Error updating post:", error);
   }
@@ -50,20 +31,8 @@ export function* workUpdatePostFetch(action) {
 
 export function* workCreatePostFetch(action) {
   try {
-    const response = yield call(fetch, 'https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(action.payload),
-    });
-
-    if (response.ok) {
-      const newPost = yield response.json();
-      yield put(createPostSuccess(newPost));
-    } else {
-      throw new Error('Failed to create post');
-    }
+    const newPost = yield call(createPost, action.payload);
+    yield put(createPostSuccess(newPost));
   } catch (error) {
     console.error("Error creating post:", error);
   }
