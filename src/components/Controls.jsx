@@ -25,33 +25,30 @@ const Controls = ({ activeTab, searchProperty }) => {
         localStorage.setItem('darkMode', !isDarkMode ? 'enabled' : 'disabled');
     };
 
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchValue(value);
+        searchProperty(value);
+    };
+
     return (
-        <div className={`flex items-center justify-between mb-6 ${isDarkMode ? 'dark' : ''}`}>
-            <div className="flex items-center gap-4">
-                <div className="relative">
+        <div className={`flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6 ${isDarkMode ? 'dark' : ''}`}>
+            {/* Search Section */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+                <div className="relative flex-1 sm:flex-none">
                     <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
                     <input
                         type="text"
                         placeholder="Search..."
-                        className="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
+                        className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
                         value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
+                        onChange={handleSearchChange}
                     />
                 </div>
-                <button 
-                    onClick={() => searchProperty(searchValue)} 
-                    className="flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                >
-                    <Filter className="w-4 h-4" />
-                    Filter
-                </button>
-            </div>
-            
-            <div className="flex items-center gap-3">
-                {/* Dark Mode Toggle Button */}
+ {/* Dark Mode Toggle Button */}
                 <button
                     onClick={toggleDarkMode}
-                    className="flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-colors"
+                    className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 whitespace-nowrap"
                     title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
                 >
                     {isDarkMode ? (
@@ -60,14 +57,20 @@ const Controls = ({ activeTab, searchProperty }) => {
                         <Moon className="w-4 h-4" />
                     )}
                 </button>
+            </div>
+            
+            {/* Action Buttons Section */}
+            <div className="flex items-center gap-3 justify-center sm:justify-start">
+               
 
                 {activeTab === 'posts' && (
                     <button 
                         onClick={() => dispatch(setCreatePostUI(true))} 
-                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600"
+                        className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 flex-shrink-0"
                     >
                         <Plus className="w-4 h-4" />
-                        {'Create Post'}
+                        <span className="hidden xs:inline sm:hidden md:inline">Create Post</span>
+                        <span className="xs:hidden sm:inline md:hidden">Create</span>
                     </button>
                 )}
             </div>
