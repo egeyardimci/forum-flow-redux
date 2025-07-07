@@ -1,12 +1,12 @@
-import { call, put } from "redux-saga/effects";
-import { GET_USERS_SUCCESS } from "../actions/actionTypes";
+import { call, put, takeEvery } from "redux-saga/effects";
+import { GET_USERS_FETCH, GET_USERS_SUCCESS } from "../actions/actionTypes";
 import { getUserSuccess } from "../actions/actionCreators";
 import { fetchUsers } from "../../api";
 
-export function* workGetUsersFetch() {
+function* workGetUsersFetch() {
   try {
     const userData = yield call(fetchUsers);
-    
+
     const userIdtToUsernameMap = userData.reduce((acc, user) => {
       acc[user.id] = user.name;
       return acc;
@@ -17,3 +17,9 @@ export function* workGetUsersFetch() {
     console.error("Error fetching users:", error);
   }
 }
+
+function* rootSaga() {
+  yield takeEvery(GET_USERS_FETCH, workGetUsersFetch);
+}
+
+export default rootSaga;

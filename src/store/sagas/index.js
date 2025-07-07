@@ -1,14 +1,10 @@
-import { takeEvery } from "redux-saga/effects";
-import { CREATE_POST_FETCH, DELETE_POST_FETCH, GET_POSTS_FETCH, GET_USERS_FETCH, UPDATE_POST_FETCH} from"../actions/actionTypes";
-import { workGetUsersFetch } from "./userSaga";
-import { workCreatePostFetch, workDeletePostFetch, workGetPostsFetch, workUpdatePostFetch } from "./postSaga";
+import { spawn} from "redux-saga/effects";
+import postSaga from "./postSaga";
+import userSaga from "./userSaga";
 
 function* rootSaga() {
-  yield takeEvery(GET_USERS_FETCH, workGetUsersFetch);
-  yield takeEvery(GET_POSTS_FETCH, workGetPostsFetch);
-  yield takeEvery(CREATE_POST_FETCH, workCreatePostFetch);
-  yield takeEvery(DELETE_POST_FETCH, workDeletePostFetch);
-  yield takeEvery(UPDATE_POST_FETCH, workUpdatePostFetch);
+  yield spawn(postSaga);
+  yield spawn(userSaga);
 }
 
 export default rootSaga;
