@@ -1,6 +1,17 @@
+import { Loader2 } from "lucide-react";
 import UserRow from "./UserRow";
 
 const UsersTable = ({ users }) => {
+  const isLoading = users.length === 0;
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-4">
+        <Loader2 className={`animate-spin`} size={72} />
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm transition-colors duration-300">
       <div className="overflow-x-auto">

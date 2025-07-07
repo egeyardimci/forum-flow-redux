@@ -3,6 +3,7 @@ import PostRow from "./PostRow";
 import CreatePostModal from "./CreatePostModal";
 import { createPostFetch, deletePostFetch, updatePostFetch } from "../../store/actions/actionCreators";
 import { getCreatePostUI } from "../../store/selectors/dashBoardSelectors";
+import { Loader2 } from "lucide-react";
 const PostsTable = ({ posts, users }) => {
   const createPostUI = useSelector(getCreatePostUI);
   const dispatch = useDispatch();
@@ -23,6 +24,17 @@ const PostsTable = ({ posts, users }) => {
     console.log("Post deleted:", postId);
     dispatch(deletePostFetch(postId));
   };
+
+  const isLoading = posts.length === 0;
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-4">
+        <Loader2 className={`text-blue-500 animate-spin`} size={72} />
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm transition-colors duration-300">
       <div className="overflow-x-auto">
