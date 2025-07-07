@@ -6,7 +6,7 @@ import UsersTable from './users/UserTable';
 import PostsTable from './posts/PostTable';
 import {useDispatch, useSelector } from 'react-redux';
 import { getPostsFetch, getUsersFetch, setSearchValue } from '../store/actions/actionCreators';
-import Footer from './Footer';
+import Footer from './footer/Footer';
 
 const MainDashboard = () => {
   const activeTab = useSelector((state) => state.dashboardReducer.activeTab);
@@ -15,6 +15,7 @@ const MainDashboard = () => {
   const searchValue = useSelector((state) => state.dashboardReducer.searchValue);
   const userIdToUsernameMap = useSelector((state) => state.userReducer.userIdToUsernameMap);
   const isDarkMode = useSelector((state) => state.dashboardReducer.darkMode);
+
 
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [filteredPosts, setFilteredPosts] = useState(posts);
@@ -64,7 +65,7 @@ const MainDashboard = () => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     }
-  },[]);
+  },[isDarkMode]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
