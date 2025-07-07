@@ -7,14 +7,17 @@ import PostsTable from './posts/PostTable';
 import {useDispatch, useSelector } from 'react-redux';
 import { getPostsFetch, getUsersFetch, setSearchValue } from '../store/actions/actionCreators';
 import Footer from './footer/Footer';
+import { getActiveTab, getIsDarkMode, getSearchValue } from '../store/selectors/dashBoardSelectors';
+import { getUserIdToUsernameMap, getUsers } from '../store/selectors/userSelectors';
+import { getPosts } from '../store/selectors/postSelectors';
 
 const MainDashboard = () => {
-  const activeTab = useSelector((state) => state.dashboardReducer.activeTab);
-  const users = useSelector((state) => state.userReducer.users);
-  const posts = useSelector((state) => state.postReducer.posts);
-  const searchValue = useSelector((state) => state.dashboardReducer.searchValue);
-  const userIdToUsernameMap = useSelector((state) => state.userReducer.userIdToUsernameMap);
-  const isDarkMode = useSelector((state) => state.dashboardReducer.darkMode);
+  const activeTab = useSelector(getActiveTab);
+  const users = useSelector(getUsers);
+  const posts = useSelector(getPosts);
+  const searchValue = useSelector(getSearchValue);
+  const userIdToUsernameMap = useSelector(getUserIdToUsernameMap);
+  const isDarkMode = useSelector(getIsDarkMode);
 
 
   const [filteredUsers, setFilteredUsers] = useState(users);

@@ -2,10 +2,11 @@ import { FileText, Plus, X } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCreatePostUI } from "../../store/actions/actionCreators";
+import { getUserIdToUsernameMap } from "../../store/selectors/userSelectors";
 
 const CreatePostModal = ({ onSave, users }) => {
   const dispatch = useDispatch();
-  const userIdToUsernameMap = useSelector((state) => state.userReducer.userIdToUsernameMap);
+  const userIdToUsernameMap = useSelector(getUserIdToUsernameMap);
 
   const onClose = () => {
     dispatch(setCreatePostUI(false));

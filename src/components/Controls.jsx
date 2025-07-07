@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Search, Plus, Moon, Sun } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCreatePostUI, toggleDarkMode } from '../store/actions/actionCreators';
+import { getIsDarkMode } from '../store/selectors/dashBoardSelectors';
 
 const Controls = ({ activeTab, searchProperty }) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
-    const isDarkMode = useSelector((state) =>  state.dashboardReducer.darkMode);
+    const isDarkMode = useSelector(getIsDarkMode);
 
     const handleSearchChange = (e) => {
         const value = e.target.value;

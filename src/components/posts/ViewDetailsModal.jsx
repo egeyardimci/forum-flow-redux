@@ -1,8 +1,9 @@
 import { Calendar, FileText, User, X } from "lucide-react";
 import { useSelector } from "react-redux";
+import { getUserIdToUsernameMap } from "../../store/selectors/userSelectors";
 
 const ViewDetailsModal = ({ post, onClose }) => {
-    const userIdToUsernameMap = useSelector((state) => state.userReducer.userIdToUsernameMap);
+    const userIdToUsernameMap = useSelector(getUserIdToUsernameMap);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm">

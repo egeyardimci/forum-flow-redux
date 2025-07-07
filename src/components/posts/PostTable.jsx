@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import PostRow from "./PostRow";
 import CreatePostModal from "./CreatePostModal";
 import { createPostFetch, deletePostFetch, updatePostFetch } from "../../store/actions/actionCreators";
+import { getCreatePostUI } from "../../store/selectors/dashBoardSelectors";
 const PostsTable = ({ posts, users }) => {
-  const createPostUI = useSelector((state) => state.dashboardReducer.createPostUI);
+  const createPostUI = useSelector(getCreatePostUI);
   const dispatch = useDispatch();
 
   const handleOnSave = (newPost) => {

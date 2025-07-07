@@ -3,6 +3,7 @@ import { useState } from "react";
 import ViewDetailsModal from "./ViewDetailsModal";
 import EditPostModal from "./EditPostModal";
 import { useSelector } from "react-redux";
+import { getUserIdToUsernameMap } from "../../store/selectors/userSelectors";
 
 const PostRow = ({ 
   post, 
@@ -12,7 +13,7 @@ const PostRow = ({
   const [showMenu, setShowMenu] = useState(false);
   const [showViewDetails, setShowViewDetails] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const userIdToUsernameMap = useSelector((state) => state.userReducer.userIdToUsernameMap);
+  const userIdToUsernameMap = useSelector(getUserIdToUsernameMap);
 
   const handleMenuClick = (e) => {
     e.stopPropagation();
