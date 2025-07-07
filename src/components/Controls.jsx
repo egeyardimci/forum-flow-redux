@@ -1,29 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Search, Filter, Plus, Moon, Sun } from 'lucide-react';
-import { useDispatch } from 'react-redux';
-import { setCreatePostUI } from '../store/actions/actionCreators';
+import React, { useState } from 'react';
+import { Search, Plus, Moon, Sun } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCreatePostUI, toggleDarkMode } from '../store/actions/actionCreators';
 
 const Controls = ({ activeTab, searchProperty }) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
-    const [isDarkMode, setIsDarkMode] = useState();
-
-    useEffect(() => {
-        const darkMode = localStorage.getItem('darkMode');
-        if (darkMode === 'enabled') {
-            document.documentElement.classList.add('dark');
-            setIsDarkMode(true);
-        } else {
-            document.documentElement.classList.remove('dark');
-            setIsDarkMode(false);
-        }
-    }, []);
-
-    const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
-        document.documentElement.classList.toggle('dark');
-        localStorage.setItem('darkMode', !isDarkMode ? 'enabled' : 'disabled');
-    };
+    const isDarkMode = useSelector((state) =>  state.dashboardReducer.darkMode);
 
     const handleSearchChange = (e) => {
         const value = e.target.value;
@@ -45,9 +28,9 @@ const Controls = ({ activeTab, searchProperty }) => {
                         onChange={handleSearchChange}
                     />
                 </div>
- {/* Dark Mode Toggle Button */}
+                {/* Dark Mode Toggle Button */}
                 <button
-                    onClick={toggleDarkMode}
+                    onClick={() => dispatch(toggleDarkMode())}
                     className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 whitespace-nowrap"
                     title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
                 >

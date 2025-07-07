@@ -14,6 +14,7 @@ const MainDashboard = () => {
   const posts = useSelector((state) => state.postReducer.posts);
   const searchValue = useSelector((state) => state.dashboardReducer.searchValue);
   const userIdToUsernameMap = useSelector((state) => state.userReducer.userIdToUsernameMap);
+  const isDarkMode = useSelector((state) => state.dashboardReducer.darkMode);
 
   const [filteredUsers, setFilteredUsers] = useState(users);
   const [filteredPosts, setFilteredPosts] = useState(posts);
@@ -58,6 +59,12 @@ const MainDashboard = () => {
   useEffect(() => {
     searchProperty(searchValue);
   }, [activeTab, searchProperty, searchValue]);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    }
+  },[]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
