@@ -1,4 +1,4 @@
-import { SET_ACTIVE_TAB_SUCCESS, SET_CREATE_POST_UI, SET_LOADING_VALUE, SET_SEARCH_VALUE, TOGGLE_DARKMODE, TOGGLE_DARKMODE_SUCCESS } from '../actions/actionTypes';
+import { ADD_TOAST_SUCCESS, DELETE_TOAST_SUCCESS, SET_ACTIVE_TAB_SUCCESS, SET_CREATE_POST_UI, SET_LOADING_VALUE, SET_SEARCH_VALUE, TOGGLE_DARKMODE, TOGGLE_DARKMODE_SUCCESS } from '../actions/actionTypes';
 
 const initialState = {
   activeTab: 'users',
@@ -6,6 +6,7 @@ const initialState = {
   createPostUI: false,
   darkMode: localStorage.getItem('darkMode') === 'true' || false,
   isLoading: true,
+  toasts: [],
 };
 
 const dashBoardReducer = (state = initialState, action) => {
@@ -35,6 +36,16 @@ const dashBoardReducer = (state = initialState, action) => {
       return{
         ...state,
         isLoading: action.payload,
+      };
+    case ADD_TOAST_SUCCESS:
+      return{
+        ...state,
+        toasts: [...state.toasts, action.payload],
+      };
+    case DELETE_TOAST_SUCCESS:
+      return {
+        ...state,
+        toasts: state.toasts.filter(toast => toast.id !== action.payload),
       };
     default:
       return state;

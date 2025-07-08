@@ -1,6 +1,6 @@
 import { all, fork, put, select, take, takeEvery } from "redux-saga/effects";
-import { setActiveTabSuccess, setFilteredPosts, setFilteredUsers, setLoadingValue, toggleDarkModeSuccess } from "../actions/actionCreators";
-import { GET_POSTS_SUCCESS, GET_USERS_SUCCESS, SET_ACTIVE_TAB, SET_ACTIVE_TAB_SUCCESS, SET_SEARCH_VALUE, TOGGLE_DARKMODE } from "../actions/actionTypes";
+import { addToastSuccess, setActiveTabSuccess, setFilteredPosts, setFilteredUsers, setLoadingValue, toggleDarkModeSuccess } from "../actions/actionCreators";
+import { ADD_TOAST, DELETE_TOAST, DELETE_TOAST_SUCCESS, GET_POSTS_SUCCESS, GET_USERS_SUCCESS, SET_ACTIVE_TAB, SET_ACTIVE_TAB_SUCCESS, SET_SEARCH_VALUE, TOGGLE_DARKMODE } from "../actions/actionTypes";
 import { getActiveTab } from "../selectors/dashBoardSelectors";
 import { getUserIdToUsernameMap, getUsers } from "../selectors/userSelectors";
 import { getPosts } from "../selectors/postSelectors";
@@ -51,11 +51,34 @@ function* workSetActiveTab(action) {
     yield put(setFilteredUsers(users)); // Reset filtered users when changing tabs
 }
 
+function* workAddToast(action){
+    const { type, title, message } = action.payload;
+    const newToast = {
+        id: Date.now(),
+        type,
+        title,
+        message,
+        isVisible: true
+    };
+
+    yield put(addToastSuccess(newToast));
+}
+
+function* workDeleteToast(action) {
+    const toastId = action.payload;
+    yield put({
+        type: DELETE_TOAST_SUCCESS,
+        payload: toastId
+    });
+}
+
 function* rootSaga() {
     yield takeEvery(TOGGLE_DARKMODE, workToggleDarkMode);
     yield takeEvery(SET_SEARCH_VALUE, workSearch);
     yield fork(watchLoadingValue);
     yield takeEvery(SET_ACTIVE_TAB,workSetActiveTab)
+    yield takeEvery(ADD_TOAST, workAddToast);
+    yield takeEvery(DELETE_TOAST, workDeleteToast);
 }
 
 export default rootSaga;

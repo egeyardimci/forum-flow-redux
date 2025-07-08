@@ -28,6 +28,7 @@ const Controls = ({ activeTab }) => {
                         onChange={handleSearchChange}
                     />
                 </div>
+                <div className="flex items-center gap-2">
                 {/* Dark Mode Toggle Button */}
                 <button
                     onClick={() => dispatch(toggleDarkMode())}
@@ -40,11 +41,7 @@ const Controls = ({ activeTab }) => {
                         <Moon className="w-4 h-4" />
                     )}
                 </button>
-            </div>
-            
-            {/* Action Buttons Section */}
-
-                {/* Create Post Button */}
+                                {/* Create Post Button */}
                 {activeTab === 'posts' && (
                 <div className="flex items-center  justify-center sm:justify-start">    
                     <button 
@@ -57,7 +54,8 @@ const Controls = ({ activeTab }) => {
                     </button>
                 </div>
                 )}
-
+                </div>
+            </div>
         </div>
     );
 };
