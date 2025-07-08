@@ -1,6 +1,6 @@
-import { put, select, takeEvery } from "redux-saga/effects";
-import { toggleDarkModeSuccess } from "../actions/actionCreators";
-import { TOGGLE_DARKMODE } from "../actions/actionTypes";
+import { all, fork, put, select, take, takeEvery } from "redux-saga/effects";
+import { setLoadingValue, toggleDarkModeSuccess } from "../actions/actionCreators";
+import { GET_POSTS_SUCCESS, GET_USERS_SUCCESS, TOGGLE_DARKMODE } from "../actions/actionTypes";
 
 function* workToggleDarkMode() {
     const isDarkMode = yield select((state) =>  state.dashboardReducer.darkMode);
@@ -9,8 +9,19 @@ function* workToggleDarkMode() {
     yield put(toggleDarkModeSuccess());
 }
 
+
+function* watchLoadingValue(){
+    yield all([
+        take(GET_POSTS_SUCCESS),
+        take(GET_USERS_SUCCESS)
+  ]);
+  
+  yield put(setLoadingValue(false));
+}
+
 function* rootSaga() {
     yield takeEvery(TOGGLE_DARKMODE, workToggleDarkMode);
+    yield fork(watchLoadingValue);
 }
 
 export default rootSaga;

@@ -1,10 +1,11 @@
-import {SET_ACTIVE_TAB, SET_CREATE_POST_UI, SET_SEARCH_VALUE, TOGGLE_DARKMODE, TOGGLE_DARKMODE_SUCCESS } from '../actions/actionTypes';
+import {SET_ACTIVE_TAB, SET_CREATE_POST_UI, SET_LOADING_VALUE, SET_SEARCH_VALUE, TOGGLE_DARKMODE, TOGGLE_DARKMODE_SUCCESS } from '../actions/actionTypes';
 
 const initialState = {
   activeTab: 'users',
   searchValue: '',
   createPostUI: false,
   darkMode: localStorage.getItem('darkMode') === 'true' || false,
+  isLoading: true,
 };
 
 const dashBoardReducer = (state = initialState, action) => {
@@ -28,6 +29,11 @@ const dashBoardReducer = (state = initialState, action) => {
       return {
         ...state,
         darkMode: !state.darkMode,
+      };
+    case SET_LOADING_VALUE:
+      return{
+        ...state,
+        isLoading: action.payload,
       };
     default:
       return state;

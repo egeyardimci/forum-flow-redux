@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PostRow from "./PostRow";
 import CreatePostModal from "./CreatePostModal";
 import { createPostFetch, deletePostFetch, updatePostFetch } from "../../store/actions/actionCreators";
-import { getCreatePostUI } from "../../store/selectors/dashBoardSelectors";
+import { getCreatePostUI, getIsLoading } from "../../store/selectors/dashBoardSelectors";
 import { Loader2 } from "lucide-react";
 const PostsTable = ({ posts, users }) => {
   const createPostUI = useSelector(getCreatePostUI);
@@ -25,7 +25,7 @@ const PostsTable = ({ posts, users }) => {
     dispatch(deletePostFetch(postId));
   };
 
-  const isLoading = posts.length === 0;
+  const isLoading = useSelector(getIsLoading);
 
   if (isLoading) {
     return (

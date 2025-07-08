@@ -1,13 +1,15 @@
 import { Loader2 } from "lucide-react";
 import UserRow from "./UserRow";
+import { useSelector } from "react-redux";
+import { getIsLoading } from "../../store/selectors/dashBoardSelectors";
 
 const UsersTable = ({ users }) => {
-  const isLoading = users.length === 0;
+  const isLoading = useSelector(getIsLoading);
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-4">
-        <Loader2 className={`animate-spin`} size={72} />
+        <Loader2 className={`text-blue-500 animate-spin`} size={72} />
       </div>
     );
   }
