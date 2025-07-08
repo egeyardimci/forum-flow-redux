@@ -14,6 +14,7 @@ const dashBoardReducer = (state = initialState, action) => {
       return {
         ...state,
         activeTab: action.payload,
+        searchValue: '', // Reset search value when changing tabs
       };
     case SET_SEARCH_VALUE:
         return {

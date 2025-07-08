@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { } from 'react';
 import { Search, Plus, Moon, Sun } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCreatePostUI, toggleDarkMode } from '../store/actions/actionCreators';
-import { getIsDarkMode } from '../store/selectors/dashBoardSelectors';
+import { setCreatePostUI, setSearchValue, toggleDarkMode } from '../store/actions/actionCreators';
+import { getIsDarkMode, getSearchValue } from '../store/selectors/dashBoardSelectors';
 
 const Controls = ({ activeTab, searchProperty }) => {
     const dispatch = useDispatch();
-    const [searchValue, setSearchValue] = useState('');
+    const searchValue = useSelector(getSearchValue)
     const isDarkMode = useSelector(getIsDarkMode);
 
     const handleSearchChange = (e) => {
         const value = e.target.value;
-        setSearchValue(value);
+        dispatch(setSearchValue(value));
         searchProperty(value);
     };
 
