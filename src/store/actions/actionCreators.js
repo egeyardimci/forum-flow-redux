@@ -1,4 +1,4 @@
-import { GET_USERS_FETCH, GET_POSTS_FETCH, SET_ACTIVE_TAB, SET_SEARCH_VALUE, SET_SEARCH_VALUE_SUCCESS, GET_USERS_SUCCESS, GET_POSTS_SUCCESS, SET_CREATE_POST_UI, DELETE_POST_FETCH, DELETE_POST_SUCCESS, UPDATE_POST_FETCH, UPDATE_POST_SUCCESS, CREATE_POST_FETCH, CREATE_POST_SUCCESS, TOGGLE_DARKMODE, TOGGLE_DARKMODE_SUCCESS, SET_LOADING_VALUE } from './actionTypes';
+import { GET_USERS_FETCH, GET_POSTS_FETCH, SET_ACTIVE_TAB, SET_SEARCH_VALUE, GET_USERS_SUCCESS, GET_POSTS_SUCCESS, SET_CREATE_POST_UI, DELETE_POST_FETCH, DELETE_POST_SUCCESS, UPDATE_POST_FETCH, UPDATE_POST_SUCCESS, CREATE_POST_FETCH, CREATE_POST_SUCCESS, TOGGLE_DARKMODE, TOGGLE_DARKMODE_SUCCESS, SET_LOADING_VALUE, SET_FILTERED_USERS, SET_FILTERED_POSTS, SET_ACTIVE_TAB_SUCCESS } from './actionTypes';
 
 export const getUsersFetch = () => ({
   type: GET_USERS_FETCH
@@ -17,11 +17,6 @@ export const setActiveTab = (tab) => ({
 
 export const setSearchValue = (value) => ({
   type: SET_SEARCH_VALUE,
-  payload: value,
-});
-
-export const setSearchValueSuccess = (value) => ({
-  type: SET_SEARCH_VALUE_SUCCESS,
   payload: value,
 });
 
@@ -80,4 +75,19 @@ export const toggleDarkModeSuccess = () => ({
 export const setLoadingValue = (isLoading) => ({
   type: SET_LOADING_VALUE,
   payload: isLoading,
+});
+
+export const setFilteredPosts = (posts) => ({
+  type: SET_FILTERED_POSTS,
+  payload: posts,
+});
+
+export const setFilteredUsers = (users) => ({
+  type: SET_FILTERED_USERS,
+  payload: users,
+});
+
+export const setActiveTabSuccess = (tab) => ({
+  type: SET_ACTIVE_TAB_SUCCESS,
+  payload: tab,
 });

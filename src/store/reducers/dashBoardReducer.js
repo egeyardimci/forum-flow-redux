@@ -1,4 +1,4 @@
-import {SET_ACTIVE_TAB, SET_CREATE_POST_UI, SET_LOADING_VALUE, SET_SEARCH_VALUE, TOGGLE_DARKMODE, TOGGLE_DARKMODE_SUCCESS } from '../actions/actionTypes';
+import { SET_ACTIVE_TAB_SUCCESS, SET_CREATE_POST_UI, SET_LOADING_VALUE, SET_SEARCH_VALUE, TOGGLE_DARKMODE, TOGGLE_DARKMODE_SUCCESS } from '../actions/actionTypes';
 
 const initialState = {
   activeTab: 'users',
@@ -10,7 +10,7 @@ const initialState = {
 
 const dashBoardReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_ACTIVE_TAB:
+    case SET_ACTIVE_TAB_SUCCESS:
       return {
         ...state,
         activeTab: action.payload,

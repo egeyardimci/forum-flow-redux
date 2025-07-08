@@ -1,4 +1,4 @@
-import {useCallback, useEffect,useState } from 'react';
+import { useEffect } from 'react';
 import Header from './Header';
 import TabNavigation from './TabNavigation';
 import Controls from './Controls';
@@ -7,62 +7,23 @@ import PostsTable from './posts/PostTable';
 import {useDispatch, useSelector } from 'react-redux';
 import { getPostsFetch, getUsersFetch, setSearchValue } from '../store/actions/actionCreators';
 import Footer from './footer/Footer';
-import { getActiveTab, getIsDarkMode, getSearchValue } from '../store/selectors/dashBoardSelectors';
-import { getUserIdToUsernameMap, getUsers } from '../store/selectors/userSelectors';
-import { getPosts } from '../store/selectors/postSelectors';
+import { getActiveTab, getIsDarkMode } from '../store/selectors/dashBoardSelectors';
+import { getFilteredUsers, getUsers } from '../store/selectors/userSelectors';
+import { getFilteredPosts } from '../store/selectors/postSelectors';
 
 const MainDashboard = () => {
   const activeTab = useSelector(getActiveTab);
   const users = useSelector(getUsers);
-  const posts = useSelector(getPosts);
-  const searchValue = useSelector(getSearchValue);
-  const userIdToUsernameMap = useSelector(getUserIdToUsernameMap);
   const isDarkMode = useSelector(getIsDarkMode);
-
-
-  const [filteredUsers, setFilteredUsers] = useState(users);
-  const [filteredPosts, setFilteredPosts] = useState(posts);
+  const filteredPosts = useSelector(getFilteredPosts);
+  const filteredUsers = useSelector(getFilteredUsers);
 
   const dispatch = useDispatch();
-  const setSearchValueHandler = (value) => {
-    dispatch(setSearchValue(value));
-  };
-
-  const searchProperty = useCallback((searchTerm) => {
-    if(searchTerm === '') {
-      setFilteredUsers(users);
-      setFilteredPosts(posts);
-      return;
-    }
-      const newFilteredPosts = posts.filter((post) => {
-        return (
-          post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          userIdToUsernameMap[post.userId]?.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-      });
-      setFilteredPosts(newFilteredPosts);
-      const newFilteredUsers = users.filter((user) => {
-        return (
-          user.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-      });
-
-      setFilteredUsers(newFilteredUsers);
-  }, [posts, users, userIdToUsernameMap]);
 
   useEffect(() => {
     dispatch(getUsersFetch());
     dispatch(getPostsFetch());
   }, [dispatch]);
-
-  useEffect(() => {
-    setFilteredUsers(users);
-    setFilteredPosts(posts);
-  }, [users,posts]);
-
-  useEffect(() => {
-    searchProperty(searchValue);
-  }, [activeTab, searchProperty, searchValue]);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -82,7 +43,7 @@ const MainDashboard = () => {
           postCount={filteredPosts.length}
         />
 
-        <Controls searchProperty={setSearchValueHandler} activeTab={activeTab} />
+        <Controls activeTab={activeTab} />
 
         {activeTab === 'users' && (
           <UsersTable users={filteredUsers} />

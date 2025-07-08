@@ -1,8 +1,9 @@
-import { GET_USERS_SUCCESS } from '../actions/actionTypes';
+import { GET_USERS_SUCCESS, SET_FILTERED_USERS } from '../actions/actionTypes';
 
 const initialState = {
   users: [],
   userIdToUsernameMap: {},
+  filteredUsers: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -12,7 +13,13 @@ const userReducer = (state = initialState, action) => {
         ...state,
         users: action.users,
         userIdToUsernameMap: action.userIdToUsernameMap,
+        filteredUsers: action.users, // Initialize filteredUsers with all users
       };
+      case SET_FILTERED_USERS:
+        return{
+          ...state,
+          filteredUsers: action.payload
+        }
     default:
       return state;
   }

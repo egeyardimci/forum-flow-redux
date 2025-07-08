@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCreatePostUI, setSearchValue, toggleDarkMode } from '../store/actions/actionCreators';
 import { getIsDarkMode, getSearchValue } from '../store/selectors/dashBoardSelectors';
 
-const Controls = ({ activeTab, searchProperty }) => {
+const Controls = ({ activeTab }) => {
     const dispatch = useDispatch();
     const searchValue = useSelector(getSearchValue)
     const isDarkMode = useSelector(getIsDarkMode);
@@ -12,7 +12,6 @@ const Controls = ({ activeTab, searchProperty }) => {
     const handleSearchChange = (e) => {
         const value = e.target.value;
         dispatch(setSearchValue(value));
-        searchProperty(value);
     };
 
     return (
